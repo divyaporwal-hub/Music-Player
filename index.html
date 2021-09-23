@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Music Player App
+	</title>
+	<link rel="stylesheet" type="text/css" href="music.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="main_div">
+	<div class="music_container">
+		<h2 id="title">GIVE ME SOME SUN SHINE</h2>
+		<h3 id="artist">artist</h3>
+		<div class="imgs">
+			<img src="image2.jpg" alt="GIVE ME SOME SUN SHINE">
+
+		</div>
+		<audio src="audio1.mp3"></audio>
+		<div class="music_controls">
+			<i class="fas fa-backward" id="prev" title="Previous"></i>
+			<i class="fas fa-play main-button" id="play" title="Play"></i>
+			<i class="fas fa-forward" id="next" title="Next"></i>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript" >
+	const music =document.querySelector("audio");
+	const img= document.querySelector("img");
+	const play=document.getElementById('play');
+	const artist=document.getElementById('artist');
+	const title=document.getElementById('title');
+	const prev=document.getElementById('prev');
+	const next=document.getElementById('next');
+	let isplay = false;
+
+		const songs =[
+		{
+			name:"audio1",
+			title: "GIVE ME SOME SUNSHINE",
+            artist: "artist",
+		},
+		{
+			name:"audio2",
+			title: "BAAWLA",
+            artist: "Badshah",
+			
+		},
+		{
+			name:"audio3",
+			title: "SHREE GANESHA DEVA",
+            artist: "artist",
+		},
+		{
+			name:"audio4",
+			title: "ALL IS WELL",
+            artist: "artist",
+		},
+
+	];
+	const playMusic=() =>{
+		isplay =true;
+		music.play();
+		play.classList.replace('fa-play' ,"fa-pause");
+		img.classList.add("anime");
+
+	};
+	const pauseMusic=() =>{
+		
+		isplay =false;
+		music.pause();
+		play.classList.replace("fa-pause",'fa-play');
+		img.classList.remove("anime");
+
+
+	};
+	play.addEventListener('click',() =>{
+		if(isplay)
+		{
+			pauseMusic();
+		}
+		else
+		{
+			playMusic();
+		}
+	});
+
+	//Changing the music
+    const loadSongs =(songs) =>{
+          title.textContent=songs.tiltle;
+		   artist.textContent=songs.artist;
+		   music.src = "music/"+songs.name+".mp3";
+		   img.src = "images/" +songs.name+".jpg"
+	};
+    songIndex=0;
+	const nextSong=( =>{	
+		songIndex=(songIndex+1)%songs.length;
+    loadSongs(songs[songIndex]);
+	playMusic();
+
+	});
+	const prevSong=( =>{	
+		songIndex=(songIndex-1 + songs.length)%songs.length;
+    loadSongs(songs[songIndex]);
+	playMusic();
+	});
+	next.addEventListener('click' , nextSong);
+	prev.addEventListener('click' , prevSong);
+
+
+</script>
+</body>
+</html>
